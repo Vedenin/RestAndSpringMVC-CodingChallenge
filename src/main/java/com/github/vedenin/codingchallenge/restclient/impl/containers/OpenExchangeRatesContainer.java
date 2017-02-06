@@ -1,4 +1,4 @@
-package com.github.vedenin.codingchallenge.rest.impl.containers;
+package com.github.vedenin.codingchallenge.restclient.impl.containers;
 
 import java.util.Map;
 

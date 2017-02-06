@@ -1,6 +1,6 @@
-package com.github.vedenin.codingchallenge.rest;
+package com.github.vedenin.codingchallenge.restclient;
 
-import com.github.vedenin.codingchallenge.rest.enums.CurrencyEnum;
+import com.github.vedenin.codingchallenge.restclient.enums.CurrencyEnum;
 
 import java.math.BigDecimal;
 import java.util.Calendar;

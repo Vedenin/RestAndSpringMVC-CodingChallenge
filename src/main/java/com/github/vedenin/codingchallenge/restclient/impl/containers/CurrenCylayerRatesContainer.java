@@ -1,6 +1,4 @@
-package com.github.vedenin.codingchallenge.rest.impl.containers;
-
-import com.sun.org.apache.xpath.internal.operations.Bool;
+package com.github.vedenin.codingchallenge.restclient.impl.containers;
 
 import java.util.Map;
 
