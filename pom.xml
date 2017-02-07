@@ -85,7 +85,7 @@
                 <configuration>
                     <scanIntervalSeconds>10</scanIntervalSeconds>
                     <webApp>
-                        <contextPath>/spring2</contextPath>
+                        <contextPath>/currency_converter</contextPath>
                     </webApp>
                 </configuration>
             </plugin>
