@@ -4,6 +4,7 @@ import com.github.vedenin.codingchallenge.common.CurrencyEnum;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 /**
  * Created by vvedenin on 2/8/2017.
@@ -35,6 +36,10 @@ public class ConverterFormModel {
 
     public Double getAmount() {
         return amount;
+    }
+
+    public BigDecimal getAmountBigDecimal() {
+        return new BigDecimal(amount);
     }
 
     public void setAmount(Double amount) {
