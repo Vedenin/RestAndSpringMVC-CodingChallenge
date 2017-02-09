@@ -43,7 +43,7 @@ public class CurrencyLayerRestClient implements RestClient {
     private BigDecimal getExchangeRates(CurrencyEnum currencyFrom, CurrencyEnum currencyTo, CurrencyLayerRatesContainer rates) {
         BigDecimal currencyFromRate = getRates(currencyFrom, rates);
         BigDecimal currencyToRate = getRates(currencyTo, rates);
-        return currencyFromRate.divide(currencyToRate, 20, ROUND_FLOOR);
+        return currencyToRate.divide(currencyFromRate, 20, ROUND_FLOOR);
     }
 
     public CurrencyLayerRatesContainer getCurrentRates() {

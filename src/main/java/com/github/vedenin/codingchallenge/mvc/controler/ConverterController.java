@@ -35,7 +35,8 @@ public class ConverterController extends WebMvcConfigurerAdapter {
     @PostMapping("/")
     public String checkPersonInfo(ConverterFormModel converterFormModel, Model model) {
         model.addAttribute(CURRENCY_ENUM, CurrencyEnum.values());
-        model.addAttribute(RESULT, String.format("%.3f%n", currentConvector.getConvertValue(converterFormModel.getAmountBigDecimal(),
+        model.addAttribute(RESULT, String.format("%.3f%n",
+                currentConvector.getConvertValue(converterFormModel.getAmount(),
                 converterFormModel.getCurrencyEnumFrom(),
                 converterFormModel.getCurrencyEnumTo())));
         return "form";

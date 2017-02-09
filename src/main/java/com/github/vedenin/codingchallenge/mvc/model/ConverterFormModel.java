@@ -16,7 +16,7 @@ public class ConverterFormModel {
     private String from = CurrencyEnum.EUR.getCode();
     @Min(0)
     @NotNull
-    private Double amount = 1.0;
+    private BigDecimal amount = new BigDecimal(1.0);
 
     public String getTo() {
         return to;
@@ -34,15 +34,11 @@ public class ConverterFormModel {
         this.from = from;
     }
 
-    public Double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public BigDecimal getAmountBigDecimal() {
-        return new BigDecimal(amount);
-    }
-
-    public void setAmount(Double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 
