@@ -1,0 +1,51 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+<h3>Currency Converter</h3>
+<form action="#" th:action="@{/}" th:object="${converterFormModel}" method="post">
+    <table>
+        <tr>
+            <td>amount:</td>
+            <td><input type="text" th:field="*{amount}"/></td>
+            <td th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}">Amount Error</td>
+        </tr>
+        <tr>
+            <td>From:</td>
+            <td>
+                <select name="from" th:field="*{from}">
+                    <option th:each="item : ${currencyEnum}" th:value="${item.getCode()}"
+                            th:text="${item.getDescription()}" th:if="${item.getCode() != from}">
+                    </option>
+                    <option th:each="item : ${currencyEnum}" th:value="${item.getCode()}"
+                            th:text="${item.getDescription()}" th:if="${item.getCode() == from}"
+                            selected="selected">
+                    </option>
+                </select>
+            </td>
+            <td th:if="${#fields.hasErrors('from')}" th:errors="*{from}">To Error</td>
+        </tr>
+        <tr>
+            <td>To:</td>
+            <td>
+                <select name="to" th:field="*{to}">
+                    <option th:each="item : ${currencyEnum}" th:value="${item.getCode()}"
+                            th:text="${item.getDescription()}" th:if="${item.getCode() != to}">
+                    </option>
+                    <option th:each="item : ${currencyEnum}" th:value="${item.getCode()}"
+                            th:text="${item.getDescription()}" th:if="${item.getCode() == to}"
+                            selected="selected">
+                    </option>
+                </select>
+            </td>
+            <td th:if="${#fields.hasErrors('to')}" th:errors="*{to}">To Error</td>
+        </tr>
+        <tr>
+            <td>
+                <button type="submit">Submit</button>
+            </td>
+        </tr>
+    </table>
+    <p th:text="${result}" th:if="${result >= 0}"></p>
+</form>
+</body>
+</html>

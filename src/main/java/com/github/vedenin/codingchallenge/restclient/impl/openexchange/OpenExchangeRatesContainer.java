@@ -1,4 +1,4 @@
-package com.github.vedenin.codingchallenge.restclient.impl.containers;
+package com.github.vedenin.codingchallenge.restclient.impl.openexchange;
 
 import java.util.Map;
 

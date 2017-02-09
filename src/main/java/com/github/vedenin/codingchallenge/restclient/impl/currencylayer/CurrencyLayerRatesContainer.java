@@ -1,11 +1,11 @@
-package com.github.vedenin.codingchallenge.restclient.impl.containers;
+package com.github.vedenin.codingchallenge.restclient.impl.currencylayer;
 
 import java.util.Map;
 
 /**
  * Created by slava on 04.02.17.
  */
-public class CurrenCylayerRatesContainer {
+public class CurrencyLayerRatesContainer {
     private Boolean success;
     private String terms;
     private String privacy;
@@ -81,7 +81,7 @@ public class CurrenCylayerRatesContainer {
 
     @Override
     public String toString() {
-        return "CurrenCylayerRatesContainer{" +
+        return "CurrencyLayerRatesContainer{" +
                 "success=" + success +
                 ", terms='" + terms + '\'' +
                 ", privacy='" + privacy + '\'' +

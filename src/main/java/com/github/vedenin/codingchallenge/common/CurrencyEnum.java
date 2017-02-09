@@ -1,6 +1,8 @@
-package com.github.vedenin.codingchallenge.restclient.enums;
+package com.github.vedenin.codingchallenge.common;
 
 /**
+ * List of currency that be supported in our converter
+ *
  * Created by slava on 04.02.17.
  */
 public enum CurrencyEnum {
