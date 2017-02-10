@@ -13,7 +13,16 @@ public class CurrencyLayerRatesContainer {
     private String date;
     private String source;
     private Long timestamp;
+    private ErrorContainer error;
     private Map<String, String> quotes;
+
+    public ErrorContainer getError() {
+        return error;
+    }
+
+    public void setError(ErrorContainer error) {
+        this.error = error;
+    }
 
     public Boolean getSuccess() {
         return success;
@@ -91,5 +100,34 @@ public class CurrencyLayerRatesContainer {
                 ", timestamp=" + timestamp +
                 ", quotes=" + quotes +
                 '}';
+    }
+
+    public static class ErrorContainer {
+        public String code;
+        public String info;
+
+        public String getCode() {
+            return code;
+        }
+
+        public void setCode(String code) {
+            this.code = code;
+        }
+
+        public String getInfo() {
+            return info;
+        }
+
+        public void setInfo(String info) {
+            this.info = info;
+        }
+
+        @Override
+        public String toString() {
+            return "ErrorContainer{" +
+                    "code='" + code + '\'' +
+                    ", info='" + info + '\'' +
+                    '}';
+        }
     }
 }

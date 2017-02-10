@@ -1,5 +1,6 @@
 package com.github.vedenin.codingchallenge.restclient.impl.currencylayer;
 
+import com.github.vedenin.codingchallenge.exceptions.RestClientException;
 import com.github.vedenin.codingchallenge.restclient.RestClient;
 import com.github.vedenin.codingchallenge.common.CurrencyEnum;
 import org.apache.commons.lang3.StringUtils;
@@ -55,8 +56,14 @@ public class CurrencyLayerRestClient implements RestClient {
     }
 
     private static BigDecimal getRates(CurrencyEnum currency, CurrencyLayerRatesContainer rates) {
-        String rate = rates.getQuotes().get("USD" + currency.getCode());
-        return new BigDecimal(rate);
+        if (rates.getQuotes() == null) {
+            throw new RestClientException("Error while gathering information from CurrencyLayer services" +
+                    (rates.getError() != null ? ", code:" + rates.getError().getCode() + ", error:" +
+                            rates.getError().getInfo() : ""));
+        } else {
+            String rate = rates.getQuotes().get("USD" + currency.getCode());
+            return new BigDecimal(rate);
+        }
     }
 
     private static <T> T getEntity(String url, String api, Class<T> entityClass) {

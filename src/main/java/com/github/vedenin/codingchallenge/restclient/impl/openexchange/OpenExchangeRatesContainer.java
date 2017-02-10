@@ -11,6 +11,10 @@ public class OpenExchangeRatesContainer {
     private Long timestamp;
     private String base;
     private Map<String, String> rates;
+    private Boolean error;
+    private String status;
+    private String message;
+    private String description;
 
     public String getDisclaimer() {
         return disclaimer;
@@ -52,14 +56,35 @@ public class OpenExchangeRatesContainer {
         this.rates = rates;
     }
 
-    @Override
-    public String toString() {
-        return "OpenExchangeRatesContainer{" +
-                "disclaimer='" + disclaimer + '\'' +
-                ", license='" + license + '\'' +
-                ", timestamp=" + timestamp +
-                ", base='" + base + '\'' +
-                ", rates=" + rates +
-                '}';
+    public Boolean getError() {
+        return error;
+    }
+
+    public void setError(Boolean error) {
+        this.error = error;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
