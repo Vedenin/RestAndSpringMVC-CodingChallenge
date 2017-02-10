@@ -1,7 +1,9 @@
 package com.github.vedenin.codingchallenge;
 
 import com.github.vedenin.codingchallenge.common.CurrencyEnum;
+import com.github.vedenin.codingchallenge.exceptions.RestClientException;
 import com.github.vedenin.codingchallenge.restclient.RestClient;
+import com.github.vedenin.codingchallenge.restclient.impl.currencylayer.CurrencyLayerRestClient;
 import com.github.vedenin.codingchallenge.restclient.impl.openexchange.OpenExchangeRestClient;
 import org.junit.Assert;
 import org.junit.Test;
@@ -25,6 +27,18 @@ public class OpenExchangeRestClientTest {
         convertRates = restClient.getHistoricalExchangeRates(CurrencyEnum.EUR, CurrencyEnum.RUB,
                 new GregorianCalendar(2012, 1, 1));
         Assert.assertEquals(convertRates.doubleValue(), 39.7, 0.5);
+    }
+
+    @Test
+    public void ExternalErrorTest() {
+        RestClient restClient = new OpenExchangeRestClient();
+        try {
+            BigDecimal convertRates = restClient.getHistoricalExchangeRates(CurrencyEnum.EUR, CurrencyEnum.RUB, new GregorianCalendar(2110, 12, 47));
+            Assert.fail("Must be throw RestClientException");
+        } catch (RestClientException exception) {
+            Assert.assertEquals("Error while gathering information from OpenExchange services, error: Bad Request",
+                    exception.getMessage());
+        }
     }
 
 }

@@ -31,7 +31,7 @@ public class CurrencyLayerRestClientTest {
         RestClient restClient = new CurrencyLayerRestClient();
         try {
             BigDecimal convertRates = restClient.getHistoricalExchangeRates(CurrencyEnum.EUR, CurrencyEnum.RUB, new GregorianCalendar(2110, 12, 47));
-            Assert.fail("Must be run RestClientException");
+            Assert.fail("Must be throw RestClientException");
         } catch (RestClientException exception) {
             Assert.assertEquals("Error while gathering information from CurrencyLayer services, code:106, error:" +
                     "Your query did not return any results. Please try again.", exception.getMessage());

@@ -1,5 +1,6 @@
 package com.github.vedenin.codingchallenge.restclient.impl.openexchange;
 
+import com.github.vedenin.codingchallenge.exceptions.RestClientException;
 import com.github.vedenin.codingchallenge.restclient.RestClient;
 import com.github.vedenin.codingchallenge.common.CurrencyEnum;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ public class OpenExchangeRestClient implements RestClient {
     private final static String URL_HISTORY = "https://openexchangerates.org/api/historical/";
     private final static String API_ID = "20b5648a4f504982aba6464b13160704";
     private final static String API_ID_PRM = "app_id=";
+    public static final String ERROR_WHILE_GATHERING_INFORMATION = "Error while gathering information from OpenExchange services";
 
     public BigDecimal getCurrentExchangeRates(CurrencyEnum currencyFrom, CurrencyEnum currencyTo) {
         return getExchangeRates(currencyFrom, currencyTo, getCurrentRates());
@@ -53,8 +55,14 @@ public class OpenExchangeRestClient implements RestClient {
     }
 
     private static BigDecimal getRates(CurrencyEnum currency, OpenExchangeRatesContainer rates) {
-        String rate = rates.getRates().get(currency.getCode());
-        return new BigDecimal(rate);
+        if (rates.getRates() == null || rates.getRates().get(currency.getCode()) == null) {
+            throw new RestClientException(ERROR_WHILE_GATHERING_INFORMATION +
+                    (rates.getError() != null ? ", code:" + rates.getStatus() + ", error:" +
+                            rates.getError() + " " + rates.getDescription() : ""));
+        } else {
+            String rate = rates.getRates().get(currency.getCode());
+            return new BigDecimal(rate);
+        }
     }
 
     private static <T> T getEntity(String url, String api, Class<T> entityClass) {
@@ -63,6 +71,9 @@ public class OpenExchangeRestClient implements RestClient {
             Client client = ClientBuilder.newBuilder().build();
             response = client.target(url + API_ID_PRM + api).request().get();
             return response.readEntity(entityClass);
+        } catch (Exception exp) {
+            throw new RestClientException(ERROR_WHILE_GATHERING_INFORMATION + ", error: " +
+                    (response != null? response.getStatusInfo(): exp.getMessage()));
         } finally {
             if (response != null) {
                 response.close();

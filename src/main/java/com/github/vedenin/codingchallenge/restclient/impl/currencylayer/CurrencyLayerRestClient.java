@@ -24,6 +24,7 @@ public class CurrencyLayerRestClient implements RestClient {
     private final static String URL_HISTORY = "http://apilayer.net/api/historical?date=";
     private final static String API_ID = "f7e5948888d41713110273b47c682db0";
     private final static String API_ID_PRM = "&access_key=";
+    private static final String ERROR_WHILE_GATHERING_INFORMATION = "Error while gathering information from CurrencyLayer services";
 
 
     public BigDecimal getCurrentExchangeRates(CurrencyEnum currencyFrom, CurrencyEnum currencyTo) {
@@ -57,7 +58,7 @@ public class CurrencyLayerRestClient implements RestClient {
 
     private static BigDecimal getRates(CurrencyEnum currency, CurrencyLayerRatesContainer rates) {
         if (rates.getQuotes() == null) {
-            throw new RestClientException("Error while gathering information from CurrencyLayer services" +
+            throw new RestClientException(ERROR_WHILE_GATHERING_INFORMATION +
                     (rates.getError() != null ? ", code:" + rates.getError().getCode() + ", error:" +
                             rates.getError().getInfo() : ""));
         } else {
@@ -72,6 +73,9 @@ public class CurrencyLayerRestClient implements RestClient {
             Client client = ClientBuilder.newBuilder().build();
             response = client.target(url + API_ID_PRM + api).request().get();
             return response.readEntity(entityClass);
+        } catch (Exception exp) {
+            throw new RestClientException(ERROR_WHILE_GATHERING_INFORMATION + ", error: " +
+                    (response != null? response.getStatusInfo(): exp.getMessage()));
         } finally {
             if (response != null) {
                 response.close();
