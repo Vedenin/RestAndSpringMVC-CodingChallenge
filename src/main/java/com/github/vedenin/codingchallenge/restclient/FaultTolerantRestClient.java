@@ -9,6 +9,9 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
+ * Rest client that used all services before one of services not returns
+ * correct result
+ *
  * Created by slava on 10.02.17.
  */
 @Service("FaultTolerant")
@@ -18,11 +21,9 @@ public class FaultTolerantRestClient implements RestClient {
 
     public BigDecimal getCurrentExchangeRates(CurrencyEnum currencyFrom, CurrencyEnum currencyTo) {
         for (RestClient client : list) {
-            if (!(client instanceof FaultTolerantRestClient)) {
-                try {
-                    return client.getCurrentExchangeRates(currencyFrom, currencyTo);
-                } catch (Exception ignore) {
-                }
+            try {
+                return client.getCurrentExchangeRates(currencyFrom, currencyTo);
+            } catch (Exception ignore) {
             }
         }
         return null;
@@ -30,11 +31,9 @@ public class FaultTolerantRestClient implements RestClient {
 
     public BigDecimal getHistoricalExchangeRates(CurrencyEnum currencyFrom, CurrencyEnum currencyTo, Calendar calendar) {
         for (RestClient client : list) {
-            if (!(client instanceof FaultTolerantRestClient)) {
-                try {
-                    return client.getHistoricalExchangeRates(currencyFrom, currencyTo, calendar);
-                } catch (Exception ignore) {
-                }
+            try {
+                return client.getHistoricalExchangeRates(currencyFrom, currencyTo, calendar);
+            } catch (Exception ignore) {
             }
         }
         return null;
