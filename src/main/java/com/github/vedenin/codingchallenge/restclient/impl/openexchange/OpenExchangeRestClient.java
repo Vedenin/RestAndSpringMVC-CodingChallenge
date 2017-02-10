@@ -52,11 +52,14 @@ public class OpenExchangeRestClient implements RestClient {
 
     public OpenExchangeRatesContainer getHistoricalRates(Calendar date) {
         return getEntity(URL_HISTORY + date.get(Calendar.YEAR) + "-" +
-                        date.get(Calendar.MONTH) + "-" +
-                        date.get(Calendar.DAY_OF_MONTH) + ".json?"
+                        getStringWithLeftPadZero(date.get(Calendar.MONTH + 1)) + "-" +
+                        getStringWithLeftPadZero(date.get(Calendar.DAY_OF_MONTH)) + ".json?"
                 , API_ID, OpenExchangeRatesContainer.class);
     }
 
+    private String getStringWithLeftPadZero(int number) {
+        return String.format("%02d", number);
+    }
 
     private static BigDecimal getRates(CurrencyEnum currency, OpenExchangeRatesContainer rates) {
         String rate = rates.getRates().get(currency.getCode());

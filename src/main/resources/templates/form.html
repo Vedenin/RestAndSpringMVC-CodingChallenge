@@ -1,6 +1,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <body>
+<script type="text/javascript">
+    function showDate() {
+        document.getElementById("date_block").style.display = 'block';
+        document.getElementById("date_label").style.display = 'block';
+    }
+    function hideDate() {
+        document.getElementById("date_block").style.display = 'none';
+        document.getElementById("date_label").style.display = 'none';
+    }
+</script>
 <h3>Currency Converter</h3>
 <form action="#" th:action="@{/}" th:object="${converterFormModel}" method="post">
     <table>
@@ -42,10 +52,22 @@
         <tr>
             <td>Type:</td>
             <td>
-                <input type="radio" th:field="*{type}" th:value="current" />
+                <input type="radio" th:field="*{type}" th:value="current" onclick="hideDate()" />
                 <label th:for="${#ids.prev('type')}" th:text="current">current</label>
-                <input type="radio" th:field="*{type}" th:value="history" />
+                <input type="radio" th:field="*{type}" th:value="history" onclick="showDate()" />
                 <label th:for="${#ids.prev('type')}" th:text="history">history</label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div id="date_label" style="display: none">
+                    Date:
+                </div>
+            </td>
+            <td>
+                <div id="date_block" style="display: none">
+                    <input type="date" th:field="*{date}" />
+                </div>
             </td>
         </tr>
         <tr>

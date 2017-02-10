@@ -5,6 +5,7 @@ import com.github.vedenin.codingchallenge.common.CurrencyEnum;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * Model for converter page
@@ -21,6 +22,8 @@ public class ConverterFormModel {
     private BigDecimal amount = new BigDecimal(1.0);
 
     private String type;
+
+    private String date = "10.02.2017";
 
     public String getTo() {
         return to;
@@ -60,5 +63,13 @@ public class ConverterFormModel {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

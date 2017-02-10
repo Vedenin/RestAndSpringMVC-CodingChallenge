@@ -2,6 +2,7 @@ package com.github.vedenin.codingchallenge.restclient.impl.currencylayer;
 
 import com.github.vedenin.codingchallenge.restclient.RestClient;
 import com.github.vedenin.codingchallenge.common.CurrencyEnum;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.client.Client;
@@ -52,11 +53,14 @@ public class CurrencyLayerRestClient implements RestClient {
 
     public CurrencyLayerRatesContainer getHistoricalRates(Calendar date) {
         return getEntity(URL_HISTORY + date.get(Calendar.YEAR) + "-" +
-                        date.get(Calendar.MONTH) + "-" +
-                        date.get(Calendar.DAY_OF_MONTH)
+                        getStringWithLeftPadZero(date.get(Calendar.MONTH) + 1) + "-" +
+                        getStringWithLeftPadZero(date.get(Calendar.DAY_OF_MONTH))
                 , API_ID, CurrencyLayerRatesContainer.class);
     }
 
+    private String getStringWithLeftPadZero(int number) {
+        return String.format("%02d", number);
+    }
 
     private static BigDecimal getRates(CurrencyEnum currency, CurrencyLayerRatesContainer rates) {
         String rate = rates.getQuotes().get("USD" + currency.getCode());

@@ -12,6 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import javax.inject.Inject;
 
 /*
@@ -35,10 +41,26 @@ public class ConverterController extends WebMvcConfigurerAdapter {
     @PostMapping("/")
     public String checkPersonInfo(ConverterFormModel converterFormModel, Model model) {
         model.addAttribute(CURRENCY_ENUM, CurrencyEnum.values());
-        model.addAttribute(RESULT, String.format("%.3f%n",
-                currentConvector.getConvertValue(converterFormModel.getAmount(),
-                converterFormModel.getCurrencyEnumFrom(),
-                converterFormModel.getCurrencyEnumTo())));
+        BigDecimal result;
+        if(converterFormModel.getType().equals("history")) {
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            Date date;
+            try {
+                date = df.parse(converterFormModel.getDate());
+            } catch (ParseException e) {
+                throw new RuntimeException();
+            }
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            result = currentConvector.getConvertHistoricalValue(converterFormModel.getAmount(),
+                    converterFormModel.getCurrencyEnumFrom(), converterFormModel.getCurrencyEnumTo(),
+                    calendar);
+        } else {
+            result = currentConvector.getConvertValue(converterFormModel.getAmount(),
+                    converterFormModel.getCurrencyEnumFrom(),
+                    converterFormModel.getCurrencyEnumTo());
+        }
+        model.addAttribute(RESULT, String.format("%.3f%n", result));
         return "form";
     }
 }
