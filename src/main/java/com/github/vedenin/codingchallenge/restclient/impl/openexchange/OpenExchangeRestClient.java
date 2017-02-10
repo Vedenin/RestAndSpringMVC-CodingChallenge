@@ -23,15 +23,6 @@ public class OpenExchangeRestClient implements RestClient {
     private final static String API_ID = "20b5648a4f504982aba6464b13160704";
     private final static String API_ID_PRM = "app_id=";
 
-    public static void main(String[] args) {
-        RestClient restClient = new OpenExchangeRestClient();
-        BigDecimal convertRates = restClient.getCurrentExchangeRates(CurrencyEnum.EUR, CurrencyEnum.RUB);
-        System.out.println(convertRates);
-        convertRates = restClient.getHistoricalExchangeRates(CurrencyEnum.EUR, CurrencyEnum.RUB, new GregorianCalendar(2010, 10, 17));
-        System.out.println(convertRates);
-
-    }
-
     public BigDecimal getCurrentExchangeRates(CurrencyEnum currencyFrom, CurrencyEnum currencyTo) {
         return getExchangeRates(currencyFrom, currencyTo, getCurrentRates());
     }
@@ -52,7 +43,7 @@ public class OpenExchangeRestClient implements RestClient {
 
     public OpenExchangeRatesContainer getHistoricalRates(Calendar date) {
         return getEntity(URL_HISTORY + date.get(Calendar.YEAR) + "-" +
-                        getStringWithLeftPadZero(date.get(Calendar.MONTH + 1)) + "-" +
+                        getStringWithLeftPadZero(date.get(Calendar.MONTH) + 1) + "-" +
                         getStringWithLeftPadZero(date.get(Calendar.DAY_OF_MONTH)) + ".json?"
                 , API_ID, OpenExchangeRatesContainer.class);
     }

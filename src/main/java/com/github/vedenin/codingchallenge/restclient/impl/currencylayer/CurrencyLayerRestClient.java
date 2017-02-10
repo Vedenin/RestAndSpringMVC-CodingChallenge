@@ -24,14 +24,6 @@ public class CurrencyLayerRestClient implements RestClient {
     private final static String API_ID = "f7e5948888d41713110273b47c682db0";
     private final static String API_ID_PRM = "&access_key=";
 
-    public static void main(String[] args) {
-        RestClient restClient = new CurrencyLayerRestClient();
-        BigDecimal convertRates = restClient.getCurrentExchangeRates(CurrencyEnum.EUR, CurrencyEnum.RUB);
-        System.out.println(convertRates);
-        convertRates = restClient.getHistoricalExchangeRates(CurrencyEnum.EUR, CurrencyEnum.RUB, new GregorianCalendar(2010, 10, 17));
-        System.out.println(convertRates);
-
-    }
 
     public BigDecimal getCurrentExchangeRates(CurrencyEnum currencyFrom, CurrencyEnum currencyTo) {
         return getExchangeRates(currencyFrom, currencyTo, getCurrentRates());
