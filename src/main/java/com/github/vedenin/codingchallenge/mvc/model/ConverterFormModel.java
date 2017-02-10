@@ -7,6 +7,8 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 /**
+ * Model for converter page
+ *
  * Created by vvedenin on 2/8/2017.
  */
 public class ConverterFormModel {

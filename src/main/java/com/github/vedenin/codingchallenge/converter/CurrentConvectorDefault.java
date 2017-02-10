@@ -14,12 +14,12 @@ import java.math.BigDecimal;
 @Service
 public class CurrentConvectorDefault implements CurrentConvector {
     @Inject
-    @Qualifier("CurrencyLayer")
-    RestClient currencyLayerRestClient;
+    @Qualifier("FaultTolerant")
+    RestClient restClient;
 
 
     @Override
     public BigDecimal getConvertValue(BigDecimal amount, CurrencyEnum currencyFrom, CurrencyEnum currencyTo) {
-        return amount.multiply(currencyLayerRestClient.getCurrentExchangeRates(currencyFrom, currencyTo));
+        return amount.multiply(restClient.getCurrentExchangeRates(currencyFrom, currencyTo));
     }
 }
