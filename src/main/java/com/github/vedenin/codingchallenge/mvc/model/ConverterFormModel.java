@@ -20,6 +20,8 @@ public class ConverterFormModel {
     @NotNull
     private BigDecimal amount = new BigDecimal(1.0);
 
+    private String type;
+
     public String getTo() {
         return to;
     }
@@ -52,4 +54,11 @@ public class ConverterFormModel {
         return Enum.valueOf(CurrencyEnum.class, from);
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }

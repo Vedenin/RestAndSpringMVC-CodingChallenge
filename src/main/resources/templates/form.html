@@ -40,13 +40,22 @@
             <td th:if="${#fields.hasErrors('to')}" th:errors="*{to}">To Error</td>
         </tr>
         <tr>
+            <td>Type:</td>
+            <td>
+                <input type="radio" th:field="*{type}" th:value="current" />
+                <label th:for="${#ids.prev('type')}" th:text="current">current</label>
+                <input type="radio" th:field="*{type}" th:value="history" />
+                <label th:for="${#ids.prev('type')}" th:text="history">history</label>
+            </td>
+        </tr>
+        <tr>
             <td>
                 <button type="submit">Submit</button>
             </td>
         </tr>
     </table>
     <h2>
-        <p th:text="${result}" />
+        <p th:text="${result}"/>
     </h2>
 </form>
 </body>
