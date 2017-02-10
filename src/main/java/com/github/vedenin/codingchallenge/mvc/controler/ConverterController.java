@@ -35,27 +35,31 @@ public class ConverterController extends WebMvcConfigurerAdapter {
     @Inject
     DateConverter dateConverter;
 
-    @GetMapping("/form")
+    @GetMapping("form")
     public String showForm(ConverterFormModel converterFormModel, Model model) {
         model.addAttribute(CURRENCY_ENUM, CurrencyEnum.values());
         model.addAttribute(RESULT, "");
         return "form";
     }
 
-    @PostMapping("/form")
-    public String checkPersonInfo(ConverterFormModel converterFormModel, Model model) {
+    @PostMapping("form")
+    public String returnConverterResult(ConverterFormModel converterFormModel, Model model) {
         model.addAttribute(CURRENCY_ENUM, CurrencyEnum.values());
-        BigDecimal result;
-        if(converterFormModel.getType().equals("history")) {
-            result = currentConvector.getConvertHistoricalValue(converterFormModel.getAmount(),
-                    converterFormModel.getCurrencyEnumFrom(), converterFormModel.getCurrencyEnumTo(),
-                    dateConverter.getCalendarFromString(converterFormModel.getDate()));
+        if(converterFormModel.getType() != null) {
+            BigDecimal result;
+            if (converterFormModel.getType().equals("history")) {
+                result = currentConvector.getConvertHistoricalValue(converterFormModel.getAmount(),
+                        converterFormModel.getCurrencyEnumFrom(), converterFormModel.getCurrencyEnumTo(),
+                        dateConverter.getCalendarFromString(converterFormModel.getDate()));
+            } else {
+                result = currentConvector.getConvertValue(converterFormModel.getAmount(),
+                        converterFormModel.getCurrencyEnumFrom(),
+                        converterFormModel.getCurrencyEnumTo());
+            }
+            model.addAttribute(RESULT, String.format("%.3f%n", result));
         } else {
-            result = currentConvector.getConvertValue(converterFormModel.getAmount(),
-                    converterFormModel.getCurrencyEnumFrom(),
-                    converterFormModel.getCurrencyEnumTo());
+            model.addAttribute(RESULT, "");
         }
-        model.addAttribute(RESULT, String.format("%.3f%n", result));
         return "form";
     }
 
@@ -63,7 +67,6 @@ public class ConverterController extends WebMvcConfigurerAdapter {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("login");
         registry.addViewController("/login").setViewName("login");
-        registry.addViewController("/form").setViewName("form");
     }
 
 }
