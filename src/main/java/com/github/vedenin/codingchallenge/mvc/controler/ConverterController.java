@@ -2,6 +2,7 @@ package com.github.vedenin.codingchallenge.mvc.controler;
 
 import com.github.vedenin.codingchallenge.common.CurrencyEnum;
 import com.github.vedenin.codingchallenge.converter.CurrentConvector;
+import com.github.vedenin.codingchallenge.converter.DateConverter;
 import com.github.vedenin.codingchallenge.mvc.model.ConverterFormModel;
 import com.github.vedenin.codingchallenge.restclient.RestClient;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -30,6 +31,8 @@ public class ConverterController extends WebMvcConfigurerAdapter {
     public static final String RESULT = "result";
     @Inject
     CurrentConvector currentConvector;
+    @Inject
+    DateConverter dateConverter;
 
     @GetMapping("/")
     public String showForm(ConverterFormModel converterFormModel, Model model) {
@@ -43,18 +46,9 @@ public class ConverterController extends WebMvcConfigurerAdapter {
         model.addAttribute(CURRENCY_ENUM, CurrencyEnum.values());
         BigDecimal result;
         if(converterFormModel.getType().equals("history")) {
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-            Date date;
-            try {
-                date = df.parse(converterFormModel.getDate());
-            } catch (ParseException e) {
-                throw new RuntimeException();
-            }
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(date);
             result = currentConvector.getConvertHistoricalValue(converterFormModel.getAmount(),
                     converterFormModel.getCurrencyEnumFrom(), converterFormModel.getCurrencyEnumTo(),
-                    calendar);
+                    dateConverter.getCalendarFromString(converterFormModel.getDate()));
         } else {
             result = currentConvector.getConvertValue(converterFormModel.getAmount(),
                     converterFormModel.getCurrencyEnumFrom(),
