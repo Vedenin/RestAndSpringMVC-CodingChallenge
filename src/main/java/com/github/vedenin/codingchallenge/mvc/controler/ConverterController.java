@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.math.BigDecimal;
@@ -34,14 +35,14 @@ public class ConverterController extends WebMvcConfigurerAdapter {
     @Inject
     DateConverter dateConverter;
 
-    @GetMapping("/")
+    @GetMapping("/form")
     public String showForm(ConverterFormModel converterFormModel, Model model) {
         model.addAttribute(CURRENCY_ENUM, CurrencyEnum.values());
         model.addAttribute(RESULT, "");
         return "form";
     }
 
-    @PostMapping("/")
+    @PostMapping("/form")
     public String checkPersonInfo(ConverterFormModel converterFormModel, Model model) {
         model.addAttribute(CURRENCY_ENUM, CurrencyEnum.values());
         BigDecimal result;
@@ -57,4 +58,12 @@ public class ConverterController extends WebMvcConfigurerAdapter {
         model.addAttribute(RESULT, String.format("%.3f%n", result));
         return "form";
     }
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/").setViewName("login");
+        registry.addViewController("/login").setViewName("login");
+        registry.addViewController("/form").setViewName("form");
+    }
+
 }
