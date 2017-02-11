@@ -7,6 +7,7 @@ import com.github.vedenin.codingchallenge.mvc.model.ConverterFormModel;
 import com.github.vedenin.codingchallenge.persistence.HistoryEntity;
 import com.github.vedenin.codingchallenge.persistence.HistoryRepository;
 import com.github.vedenin.codingchallenge.persistence.UserEntity;
+import com.github.vedenin.codingchallenge.persistence.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,7 @@ import static com.github.vedenin.codingchallenge.mvc.Consts.*;
 * Controller that provide main page of Converter application
 */
 @Controller
-public class ConverterController extends WebMvcConfigurerAdapter {
+public class MainController extends WebMvcConfigurerAdapter {
 
     private static final String CURRENCY_ENUM = "currencyEnum";
     private static final String RESULT = "result";
@@ -33,26 +34,17 @@ public class ConverterController extends WebMvcConfigurerAdapter {
     DateConverter dateConverter;
     @Inject
     HistoryRepository historyRepository;
+    @Inject
+    UserRepository userRepository;
 
     @RequestMapping(CONVERTER_URL)
-    public String returnConverterResult(ConverterFormModel converterFormModel, Model model) {
+    public String handleConverterForm(ConverterFormModel converterFormModel, Model model) {
         model.addAttribute(CURRENCY_ENUM, CurrencyEnum.values());
 
         if(converterFormModel.getAmount().doubleValue() > 0 && converterFormModel.getType() != null) {
-            BigDecimal result;
-            if (converterFormModel.getType().equals("history")) {
-                result = currentConvector.getConvertHistoricalValue(converterFormModel.getAmount(),
-                        converterFormModel.getCurrencyEnumFrom(), converterFormModel.getCurrencyEnumTo(),
-                        dateConverter.getCalendarFromString(converterFormModel.getDate()));
-            } else {
-                result = currentConvector.getConvertValue(converterFormModel.getAmount(),
-                        converterFormModel.getCurrencyEnumFrom(),
-                        converterFormModel.getCurrencyEnumTo());
-            }
+            BigDecimal result = getResult(converterFormModel);
             model.addAttribute(RESULT, String.format("%.3f%n", result));
-            historyRepository.save(new HistoryEntity(converterFormModel.getAmount(),
-                    converterFormModel.getCurrencyEnumFrom(), converterFormModel.getCurrencyEnumTo(),
-                    new Date(), result, converterFormModel.getType(), converterFormModel.getDate()));
+            saveQuery(converterFormModel, result);
             converterFormModel.setType("current");
             converterFormModel.setDate(null);
         } else {
@@ -64,8 +56,9 @@ public class ConverterController extends WebMvcConfigurerAdapter {
     }
 
     @RequestMapping(REGISTER_URL)
-    public String showRegisterForm(UserEntity userEntity, Model model) {
+    public String handleRegisterForm(UserEntity userEntity, Model model) {
         if(userEntity.getUserName() != null) {
+            userRepository.save(userEntity);
             return LOGIN_URL;
         } else {
             return REGISTER_URL;
@@ -79,4 +72,23 @@ public class ConverterController extends WebMvcConfigurerAdapter {
         registry.addViewController("/" + LOGIN_URL).setViewName(LOGIN_URL);
     }
 
+    private void saveQuery(ConverterFormModel converterFormModel, BigDecimal result) {
+        historyRepository.save(new HistoryEntity(converterFormModel.getAmount(),
+                converterFormModel.getCurrencyEnumFrom(), converterFormModel.getCurrencyEnumTo(),
+                new Date(), result, converterFormModel.getType(), converterFormModel.getDate()));
+    }
+
+    private BigDecimal getResult(ConverterFormModel converterFormModel) {
+        BigDecimal result;
+        if (converterFormModel.getType().equals("history")) {
+            result = currentConvector.getConvertHistoricalValue(converterFormModel.getAmount(),
+                    converterFormModel.getCurrencyEnumFrom(), converterFormModel.getCurrencyEnumTo(),
+                    dateConverter.getCalendarFromString(converterFormModel.getDate()));
+        } else {
+            result = currentConvector.getConvertValue(converterFormModel.getAmount(),
+                    converterFormModel.getCurrencyEnumFrom(),
+                    converterFormModel.getCurrencyEnumTo());
+        }
+        return result;
+    }
 }
