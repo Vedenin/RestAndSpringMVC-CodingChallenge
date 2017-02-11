@@ -7,11 +7,17 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+import javax.activation.DataSource;
+import javax.inject.Inject;
+
 import static com.github.vedenin.codingchallenge.mvc.Consts.*;
 
 @Configuration
 @EnableWebSecurity
 public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
+    @Inject
+    ConverterUserDetailsServices converterUserDetailsServices;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -30,8 +36,6 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-            .inMemoryAuthentication()
-                .withUser("user").password("user").roles("USER");
+        auth.userDetailsService(converterUserDetailsServices);
     }
 }
