@@ -10,14 +10,16 @@ import java.util.Date;
  * Created by slava on 10.02.17.
  */
 @Entity
-public class User {
+public class UserEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Long id;
+    private Long   id;
+    private String userName;
+    private String password;
     private String firstName;
     private String lastName;
     private String email;
-    private Date dataOfBirth;
+    private String dataOfBirth;
     private String zipCode;
     private String city;
     private String country;
@@ -54,11 +56,11 @@ public class User {
         this.email = email;
     }
 
-    public Date getDataOfBirth() {
+    public String getDataOfBirth() {
         return dataOfBirth;
     }
 
-    public void setDataOfBirth(Date dataOfBirth) {
+    public void setDataOfBirth(String dataOfBirth) {
         this.dataOfBirth = dataOfBirth;
     }
 
@@ -84,5 +86,21 @@ public class User {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

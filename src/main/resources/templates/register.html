@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Currency Converter Example</title>
+</head>
+<body>
+<h3>Currency Converter</h3>
+<div th:if="${param.error}">
+    Invalid username and password.
+</div>
+<div th:if="${param.logout}">
+    You have been logged out.
+</div>
+<form th:action="@{/register}" th:object="${userEntity}" method="post">
+    <table>
+        <tr>
+            <td>
+                User Name* :
+            </td>
+            <td>
+                <input type="text" th:field="*{userName}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Password* :
+            </td>
+            <td>
+                <input type="password" th:field="*{password}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Password again* :
+            </td>
+            <td>
+                <input type="password"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                First Name :
+            </td>
+            <td>
+                <input type="text" th:field="*{firstName}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Last Name :
+            </td>
+            <td>
+                <input type="text" th:field="*{lastName}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                EMail :
+            </td>
+            <td>
+                <input type="text" th:field="*{email}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Date :
+            </td>
+            <td>
+                <input type="date" th:field="*{dataOfBirth}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                ZipCode :
+            </td>
+            <td>
+                <input type="text" th:field="*{zipCode}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                City :
+            </td>
+            <td>
+                <input type="text" th:field="*{city}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Country :
+            </td>
+            <td>
+                <input type="text" th:field="*{country}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button type="submit">Submit</button>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
