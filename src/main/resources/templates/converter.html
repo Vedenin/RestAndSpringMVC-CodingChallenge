@@ -83,5 +83,22 @@
         <p th:text="${result}"/>
     </h2>
 </form>
+<h3>Last queries</h3>
+<table border="1">
+    <tr>
+        <td>Amount</td>
+        <td>Currency from</td>
+        <td>Currency to</td>
+        <td>Result</td>
+    </tr>
+    <th:block th:each="item : ${history}">
+        <tr>
+            <td th:text="${item.getAmount()}">amount</td>
+            <td th:text="${item.getCurrencyFrom()}">currency from</td>
+            <td th:text="${item.getCurrencyTo()}">currency to</td>
+            <td th:text="${item.getResult()}">result</td>
+        </tr>
+    </th:block>
+</table>
 </body>
 </html>

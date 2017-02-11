@@ -4,6 +4,8 @@ import com.github.vedenin.codingchallenge.common.CurrencyEnum;
 import com.github.vedenin.codingchallenge.converter.CurrentConvector;
 import com.github.vedenin.codingchallenge.converter.DateConverter;
 import com.github.vedenin.codingchallenge.mvc.model.ConverterFormModel;
+import com.github.vedenin.codingchallenge.persistence.HistoryEntity;
+import com.github.vedenin.codingchallenge.persistence.HistoryRepository;
 import com.github.vedenin.codingchallenge.persistence.UserEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import javax.inject.Inject;
 
 import static com.github.vedenin.codingchallenge.mvc.Consts.*;
@@ -30,17 +33,13 @@ public class ConverterController extends WebMvcConfigurerAdapter {
     CurrentConvector currentConvector;
     @Inject
     DateConverter dateConverter;
+    @Inject
+    HistoryRepository historyRepository;
 
-    @GetMapping(CONVERTER_URL)
-    public String showForm(ConverterFormModel converterFormModel, Model model) {
-        model.addAttribute(CURRENCY_ENUM, CurrencyEnum.values());
-        model.addAttribute(RESULT, "");
-        return CONVERTER_URL;
-    }
-
-    @PostMapping(CONVERTER_URL)
+    @RequestMapping(CONVERTER_URL)
     public String returnConverterResult(ConverterFormModel converterFormModel, Model model) {
         model.addAttribute(CURRENCY_ENUM, CurrencyEnum.values());
+
         if(converterFormModel.getType() != null) {
             BigDecimal result;
             if (converterFormModel.getType().equals("history")) {
@@ -53,9 +52,13 @@ public class ConverterController extends WebMvcConfigurerAdapter {
                         converterFormModel.getCurrencyEnumTo());
             }
             model.addAttribute(RESULT, String.format("%.3f%n", result));
+            historyRepository.save(new HistoryEntity(converterFormModel.getAmount(),
+                    converterFormModel.getCurrencyEnumFrom(), converterFormModel.getCurrencyEnumTo(),
+                    new Date(), result));
         } else {
             model.addAttribute(RESULT, "");
         }
+        model.addAttribute("history", historyRepository.findFirst10ByOrderByDateCreateDesc());
         return CONVERTER_URL;
     }
 
