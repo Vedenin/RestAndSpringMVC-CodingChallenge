@@ -4,8 +4,6 @@ import com.github.vedenin.codingchallenge.common.CurrencyEnum;
 import com.github.vedenin.codingchallenge.converter.CurrentConvector;
 import com.github.vedenin.codingchallenge.converter.DateConverter;
 import com.github.vedenin.codingchallenge.mvc.model.ConverterFormModel;
-import com.github.vedenin.codingchallenge.restclient.RestClient;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,35 +12,31 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.math.BigDecimal;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import javax.inject.Inject;
 
+import static com.github.vedenin.codingchallenge.mvc.Consts.*;
 /*
 * Controller that provide main page of Converter application
 */
 @Controller
 public class ConverterController extends WebMvcConfigurerAdapter {
 
-    public static final String CURRENCY_ENUM = "currencyEnum";
-    public static final String RESULT = "result";
+    private static final String CURRENCY_ENUM = "currencyEnum";
+    private static final String RESULT = "result";
+
     @Inject
     CurrentConvector currentConvector;
     @Inject
     DateConverter dateConverter;
 
-    @GetMapping("form")
+    @GetMapping(CONVERTER_URL)
     public String showForm(ConverterFormModel converterFormModel, Model model) {
         model.addAttribute(CURRENCY_ENUM, CurrencyEnum.values());
         model.addAttribute(RESULT, "");
-        return "form";
+        return CONVERTER_URL;
     }
 
-    @PostMapping("form")
+    @PostMapping(CONVERTER_URL)
     public String returnConverterResult(ConverterFormModel converterFormModel, Model model) {
         model.addAttribute(CURRENCY_ENUM, CurrencyEnum.values());
         if(converterFormModel.getType() != null) {
@@ -60,13 +54,13 @@ public class ConverterController extends WebMvcConfigurerAdapter {
         } else {
             model.addAttribute(RESULT, "");
         }
-        return "form";
+        return CONVERTER_URL;
     }
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("login");
-        registry.addViewController("/login").setViewName("login");
+        registry.addViewController("/").setViewName(LOGIN_URL);
+        registry.addViewController("/" + LOGIN_URL).setViewName(LOGIN_URL);
     }
 
 }
