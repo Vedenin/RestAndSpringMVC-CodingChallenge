@@ -38,7 +38,7 @@ public class ConverterController extends WebMvcConfigurerAdapter {
     public String returnConverterResult(ConverterFormModel converterFormModel, Model model) {
         model.addAttribute(CURRENCY_ENUM, CurrencyEnum.values());
 
-        if(converterFormModel.getType() != null) {
+        if(converterFormModel.getAmount().doubleValue() > 0 && converterFormModel.getType() != null) {
             BigDecimal result;
             if (converterFormModel.getType().equals("history")) {
                 result = currentConvector.getConvertHistoricalValue(converterFormModel.getAmount(),
@@ -52,8 +52,11 @@ public class ConverterController extends WebMvcConfigurerAdapter {
             model.addAttribute(RESULT, String.format("%.3f%n", result));
             historyRepository.save(new HistoryEntity(converterFormModel.getAmount(),
                     converterFormModel.getCurrencyEnumFrom(), converterFormModel.getCurrencyEnumTo(),
-                    new Date(), result));
+                    new Date(), result, converterFormModel.getType(), converterFormModel.getDate()));
+            converterFormModel.setType("current");
+            converterFormModel.setDate(null);
         } else {
+            converterFormModel.setAmount(new BigDecimal(1.0));
             model.addAttribute(RESULT, "");
         }
         model.addAttribute("history", historyRepository.findFirst10ByOrderByDateCreateDesc());

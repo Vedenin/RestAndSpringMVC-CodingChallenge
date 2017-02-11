@@ -19,9 +19,9 @@ public class ConverterFormModel {
     private String from = CurrencyEnum.EUR.getCode();
     @Min(0)
     @NotNull
-    private BigDecimal amount = new BigDecimal(1.0);
+    private BigDecimal amount = new BigDecimal(0.0);
 
-    private String type;
+    private String type = "current";
 
     private String date = "10.02.2017";
 

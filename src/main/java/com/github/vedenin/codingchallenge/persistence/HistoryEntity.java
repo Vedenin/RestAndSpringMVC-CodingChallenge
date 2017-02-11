@@ -28,12 +28,18 @@ public class HistoryEntity {
 
     private BigDecimal result;
 
-    public HistoryEntity(BigDecimal amount, CurrencyEnum currencyFrom, CurrencyEnum currencyTo, Date dateCreate, BigDecimal result) {
+    private String requestType;
+
+    private String requestDate = "";
+
+    public HistoryEntity(BigDecimal amount, CurrencyEnum currencyFrom, CurrencyEnum currencyTo, Date dateCreate, BigDecimal result, String requestType, String requestDate) {
         this.amount = amount;
         this.currencyFrom = currencyFrom;
         this.currencyTo = currencyTo;
         this.dateCreate = dateCreate;
         this.result = result;
+        this.requestType = requestType;
+        this.requestDate = requestDate;
     }
 
     public HistoryEntity() {
@@ -83,7 +89,27 @@ public class HistoryEntity {
         return result;
     }
 
+    public String getStringResult() {
+        return String.format("%.3f%n", result);
+    }
+
     public void setResult(BigDecimal result) {
         this.result = result;
+    }
+
+    public String getRequestType() {
+        return requestType;
+    }
+
+    public void setRequestType(String requestType) {
+        this.requestType = requestType;
+    }
+
+    public String getRequestDate() {
+        return requestDate;
+    }
+
+    public void setRequestDate(String requestDate) {
+        this.requestDate = requestDate;
     }
 }

@@ -2,24 +2,26 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Currency Converter Example</title>
+    <script type="text/javascript">
+        //<![CDATA[
+        function showDate() {
+            document.getElementById("date_block").style.display = 'block';
+            document.getElementById("date_label").style.display = 'block';
+        }
+        function hideDate() {
+            document.getElementById("date_block").style.display = 'none';
+            document.getElementById("date_label").style.display = 'none';
+        }
+        //]]>
+    </script>
 </head>
 <body>
-<script type="text/javascript">
-    function showDate() {
-        document.getElementById("date_block").style.display = 'block';
-        document.getElementById("date_label").style.display = 'block';
-    }
-    function hideDate() {
-        document.getElementById("date_block").style.display = 'none';
-        document.getElementById("date_label").style.display = 'none';
-    }
-</script>
 <h3>Currency Converter</h3>
 <form action="#" th:action="@{/converter.html}" th:object="${converterFormModel}" method="post">
     <table>
         <tr>
             <td>amount:</td>
-            <td><input type="text" th:field="*{amount}"/></td>
+            <td><input type="number" th:field="*{amount}"/></td>
             <td th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}">Amount Error</td>
         </tr>
         <tr>
@@ -90,13 +92,17 @@
         <td>Currency from</td>
         <td>Currency to</td>
         <td>Result</td>
+        <td>Type</td>
+        <td>Date</td>
     </tr>
     <th:block th:each="item : ${history}">
         <tr>
             <td th:text="${item.getAmount()}">amount</td>
             <td th:text="${item.getCurrencyFrom()}">currency from</td>
             <td th:text="${item.getCurrencyTo()}">currency to</td>
-            <td th:text="${item.getResult()}">result</td>
+            <td th:text="${item.getStringResult()}">result</td>
+            <td th:text="${item.getRequestType()}">type</td>
+            <td th:text="${item.getRequestDate()}">date</td>
         </tr>
     </th:block>
 </table>
