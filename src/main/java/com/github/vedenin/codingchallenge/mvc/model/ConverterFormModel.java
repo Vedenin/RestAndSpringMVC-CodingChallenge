@@ -61,6 +61,9 @@ public class ConverterFormModel {
         return type;
     }
 
+    public Boolean isHistory() {
+        return type.equals("history");
+    }
     public void setType(String type) {
         this.type = type;
     }

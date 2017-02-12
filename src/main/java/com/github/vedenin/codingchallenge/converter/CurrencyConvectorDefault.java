@@ -13,7 +13,7 @@ import java.util.Calendar;
  * Created by vvedenin on 2/9/2017.
  */
 @Service
-public class CurrentConvectorDefault implements CurrentConvector {
+public class CurrencyConvectorDefault implements CurrencyConvector {
     @Inject
     @Qualifier("FaultTolerant")
     RestClient restClient;

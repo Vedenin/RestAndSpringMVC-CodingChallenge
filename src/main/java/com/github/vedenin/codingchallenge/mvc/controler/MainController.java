@@ -1,7 +1,7 @@
 package com.github.vedenin.codingchallenge.mvc.controler;
 
 import com.github.vedenin.codingchallenge.common.CurrencyEnum;
-import com.github.vedenin.codingchallenge.converter.CurrentConvector;
+import com.github.vedenin.codingchallenge.converter.CurrencyConvector;
 import com.github.vedenin.codingchallenge.converter.DateConverter;
 import com.github.vedenin.codingchallenge.mvc.model.ConverterFormModel;
 import com.github.vedenin.codingchallenge.mvc.model.CountryService;
@@ -30,7 +30,7 @@ public class MainController extends WebMvcConfigurerAdapter {
     private static final String RESULT = "result";
 
     @Inject
-    CurrentConvector currentConvector;
+    CurrencyConvector currencyConvector;
     @Inject
     DateConverter dateConverter;
     @Inject
@@ -84,12 +84,12 @@ public class MainController extends WebMvcConfigurerAdapter {
 
     private BigDecimal getResult(ConverterFormModel converterFormModel) {
         BigDecimal result;
-        if (converterFormModel.getType().equals("history")) {
-            result = currentConvector.getConvertHistoricalValue(converterFormModel.getAmount(),
+        if (converterFormModel.isHistory()) {
+            result = currencyConvector.getConvertHistoricalValue(converterFormModel.getAmount(),
                     converterFormModel.getCurrencyEnumFrom(), converterFormModel.getCurrencyEnumTo(),
                     dateConverter.getCalendarFromString(converterFormModel.getDate()));
         } else {
-            result = currentConvector.getConvertValue(converterFormModel.getAmount(),
+            result = currencyConvector.getConvertValue(converterFormModel.getAmount(),
                     converterFormModel.getCurrencyEnumFrom(),
                     converterFormModel.getCurrencyEnumTo());
         }
