@@ -3,16 +3,43 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <title>Currency Converter Example</title>
+    <script type="text/javascript">
+        //<![CDATA[
+        function validateEmail(email) {
+            var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(email);
+        }
+        function validateForm() {
+            var email = document.getElementById("email").value;
+            var userName = document.getElementById("userName").value;
+            var errorMessageElement = document.getElementById("errorMessage");
+            var password = document.getElementById("password").value;
+            var passwordAgain = document.getElementById("passwordAgain").value;
+            if(!userName) {
+                errorMessageElement.innerHTML = "The 'userName' field should be filled. Please change and try again";
+                return false;
+            } else if(!password) {
+                errorMessageElement.innerHTML = "The 'password' field should be filled. Please change and try again";
+                return false;
+            } else if(!passwordAgain) {
+                errorMessageElement.innerHTML = "The 'password again' field should be filled. Please change and try again";
+                return false;
+            } else if(password !== passwordAgain) {
+                errorMessageElement.innerHTML = "Your 'password' and 'confirmation password' do not match. Please change and try again";
+                return false;
+            } else if(!validateEmail(email)) {
+                errorMessageElement.innerHTML = "Email isn't correct. Please change and try again";
+                return false;
+            } else {
+                return true;
+            }
+        }
+        //]]>
+    </script>
 </head>
 <body>
 <h3>Currency Converter</h3>
-<div th:if="${param.error}">
-    Invalid username and password.
-</div>
-<div th:if="${param.logout}">
-    You have been logged out.
-</div>
-<form th:action="@{/register}" th:object="${userEntity}" method="post">
+<form th:action="@{/register}" th:object="${userEntity}" method="post" onsubmit="return validateForm()">
     <table>
         <tr>
             <td>
@@ -35,7 +62,7 @@
                 Password again* :
             </td>
             <td>
-                <input type="password"/>
+                <input type="password" id="passwordAgain"/>
             </td>
         </tr>
         <tr>
@@ -56,7 +83,7 @@
         </tr>
         <tr>
             <td>
-                EMail :
+                EMail* :
             </td>
             <td>
                 <input type="text" th:field="*{email}"/>
@@ -105,5 +132,6 @@
         </tr>
     </table>
 </form>
+<p id="errorMessage"></p>
 </body>
 </html>
