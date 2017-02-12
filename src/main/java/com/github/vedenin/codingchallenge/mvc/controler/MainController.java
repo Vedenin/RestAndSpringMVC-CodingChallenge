@@ -83,16 +83,12 @@ public class MainController extends WebMvcConfigurerAdapter {
     }
 
     private BigDecimal getResult(ConverterFormModel converterFormModel) {
-        BigDecimal result;
-        if (converterFormModel.isHistory()) {
-            result = currencyConvector.getConvertHistoricalValue(converterFormModel.getAmount(),
-                    converterFormModel.getCurrencyEnumFrom(), converterFormModel.getCurrencyEnumTo(),
-                    dateConverter.getCalendarFromString(converterFormModel.getDate()));
-        } else {
-            result = currencyConvector.getConvertValue(converterFormModel.getAmount(),
-                    converterFormModel.getCurrencyEnumFrom(),
-                    converterFormModel.getCurrencyEnumTo());
-        }
-        return result;
+        return currencyConvector.getConvertingValue(
+                converterFormModel.isHistory(),
+                converterFormModel.getAmount(),
+                converterFormModel.getCurrencyEnumFrom(),
+                converterFormModel.getCurrencyEnumTo(),
+                dateConverter.getCalendarFromString(converterFormModel.getDate())
+        );
     }
 }

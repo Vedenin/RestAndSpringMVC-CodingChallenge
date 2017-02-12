@@ -15,15 +15,19 @@ import java.util.Date;
 public class DateConverterDefault implements DateConverter {
     @Override
     public Calendar getCalendarFromString(String dateString) {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        Date date;
-        try {
-            date = df.parse(dateString);
-        } catch (ParseException e) {
-            throw new RuntimeException();
+        if(dateString == null || dateString.isEmpty()) {
+            return null;
+        } else {
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            Date date;
+            try {
+                date = df.parse(dateString);
+            } catch (ParseException e) {
+                throw new RuntimeException();
+            }
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            return calendar;
         }
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        return calendar;
     }
 }
