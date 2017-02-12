@@ -4,6 +4,7 @@ import com.github.vedenin.codingchallenge.common.CurrencyEnum;
 import com.github.vedenin.codingchallenge.converter.CurrentConvector;
 import com.github.vedenin.codingchallenge.converter.DateConverter;
 import com.github.vedenin.codingchallenge.mvc.model.ConverterFormModel;
+import com.github.vedenin.codingchallenge.mvc.model.CountryService;
 import com.github.vedenin.codingchallenge.persistence.HistoryEntity;
 import com.github.vedenin.codingchallenge.persistence.HistoryRepository;
 import com.github.vedenin.codingchallenge.persistence.UserEntity;
@@ -36,6 +37,8 @@ public class MainController extends WebMvcConfigurerAdapter {
     HistoryRepository historyRepository;
     @Inject
     UserRepository userRepository;
+    @Inject
+    CountryService countryService;
 
     @RequestMapping(CONVERTER_URL)
     public String handleConverterForm(ConverterFormModel converterFormModel, Model model) {
@@ -57,10 +60,11 @@ public class MainController extends WebMvcConfigurerAdapter {
 
     @RequestMapping(REGISTER_URL)
     public String handleRegisterForm(UserEntity userEntity, Model model) {
-        if(userEntity.getUserName() != null) {
+        if(userEntity.getUserName() != null && !userEntity.getUserName().isEmpty()) {
             userRepository.save(userEntity);
             return LOGIN_URL;
         } else {
+            model.addAttribute("countires", countryService.getCountriesNames());
             return REGISTER_URL;
         }
     }

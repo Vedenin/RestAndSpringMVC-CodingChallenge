@@ -64,7 +64,7 @@
         </tr>
         <tr>
             <td>
-                Date :
+                Date Of Birth:
             </td>
             <td>
                 <input type="date" th:field="*{dataOfBirth}"/>
@@ -91,7 +91,11 @@
                 Country :
             </td>
             <td>
-                <input type="text" th:field="*{country}"/>
+                <select name="country" th:field="*{country}">
+                    <option th:each="item : ${countires}" th:value="${item}"
+                            th:text="${item}">
+                    </option>
+                </select>
             </td>
         </tr>
         <tr>
