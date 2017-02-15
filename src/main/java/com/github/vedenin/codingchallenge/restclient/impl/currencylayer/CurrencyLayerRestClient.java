@@ -3,7 +3,6 @@ package com.github.vedenin.codingchallenge.restclient.impl.currencylayer;
 import com.github.vedenin.codingchallenge.exceptions.RestClientException;
 import com.github.vedenin.codingchallenge.restclient.RestClient;
 import com.github.vedenin.codingchallenge.common.CurrencyEnum;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.client.Client;
@@ -11,7 +10,6 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
 import java.math.BigDecimal;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 import static java.math.BigDecimal.ROUND_FLOOR;
 

@@ -1,7 +1,32 @@
 ### Rest API and SpringMVC CodingChallenge
 
-**In progress!!**
+This coding challenge task shows following my skills:
+1. Spring MVC
+2. Spring Security
+3. Integration with REST service using Java-RS client
+4. Using Spring Rest Service 
+5. Using Spring Boot
+6. Using H2 and Hibernate  
+ 
+#### How run in IDE (Eclipse, Idea)
 
+1. Run 
+     "mvn clean install"
+     
+2. Run Application.class in any Java IDE
+
+#### How run using jar file and Spring Boot 
+1. Run 
+     "mvn clean install"
+     
+2. Run Application.class in codingchallenge-1.0-SNAPSHOT.jar, for example 
+
+   java -jar target/codingchallenge-1.0-SNAPSHOT.jar
+    
+See more info in [Spring Boot documentation](http://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-running-your-application.html)
+
+#### How see result in web
+Use following link: [https://currency-convector.herokuapp.com/](https://currency-convector.herokuapp.com/)
 
 #### Coding Challenge Requirements 
 
