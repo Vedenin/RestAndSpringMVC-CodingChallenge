@@ -13,11 +13,11 @@ public class ErrorEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long   id;
-    private String error;
+    private String errorMessage;
     private Exception exp;
 
-    public ErrorEntity(String error, Exception exp) {
-        this.error = error;
+    public ErrorEntity(String errorMessage, Exception exp) {
+        this.errorMessage = errorMessage;
         this.exp = exp;
     }
 
@@ -32,12 +32,12 @@ public class ErrorEntity {
         this.id = id;
     }
 
-    public String getError() {
-        return error;
+    public String getErrorMessage() {
+        return errorMessage;
     }
 
-    public void setError(String error) {
-        this.error = error;
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 
     public Exception getExp() {

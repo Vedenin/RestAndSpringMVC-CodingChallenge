@@ -5,12 +5,10 @@ import com.github.vedenin.codingchallenge.converter.CurrencyConvector;
 import com.github.vedenin.codingchallenge.converter.DateConverter;
 import com.github.vedenin.codingchallenge.mvc.model.ConverterFormModel;
 import com.github.vedenin.codingchallenge.mvc.model.CountryService;
-import com.github.vedenin.codingchallenge.persistence.HistoryEntity;
-import com.github.vedenin.codingchallenge.persistence.HistoryRepository;
-import com.github.vedenin.codingchallenge.persistence.UserEntity;
-import com.github.vedenin.codingchallenge.persistence.UserRepository;
+import com.github.vedenin.codingchallenge.persistence.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -39,6 +37,8 @@ public class MainController extends WebMvcConfigurerAdapter {
     UserRepository userRepository;
     @Inject
     CountryService countryService;
+    @Inject
+    ErrorRepository errorRepository;
 
     @RequestMapping(CONVERTER_URL)
     public String handleConverterForm(ConverterFormModel converterFormModel, Model model) {
@@ -76,6 +76,12 @@ public class MainController extends WebMvcConfigurerAdapter {
         registry.addViewController("/" + LOGIN_URL).setViewName(LOGIN_URL);
     }
 
+    @ExceptionHandler(Exception.class)
+    public String handleError(Model model, Exception ex) {
+        errorRepository.save(new ErrorEntity("Error in Rest service", ex));
+        model.addAttribute("error", ex.getMessage());
+        return CONVERTER_URL;
+    }
     private void saveQuery(ConverterFormModel converterFormModel, BigDecimal result) {
         historyRepository.save(new HistoryEntity(converterFormModel.getAmount(),
                 converterFormModel.getCurrencyEnumFrom(), converterFormModel.getCurrencyEnumTo(),
