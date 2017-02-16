@@ -50,9 +50,11 @@ Use following link: [https://currency-convector.herokuapp.com/](https://currency
 
 2. rovide an automated build and test run on a continuous integration server - done: [circleci.com](https://circleci.com/gh/Vedenin/RestAndSpringMVC-CodingChallenge/1) and [travis-ci.org](https://travis-ci.org/Vedenin/RestAndSpringMVC-CodingChallenge)
 
-3. Implement monitoring and management interface (JMX, REST, etc..) - [done](https://github.com/Vedenin/RestAndSpringMVC-CodingChallenge/blob/master/src/main/java/com/github/vedenin/codingchallenge/mvc/controler/MainRestController.java)
+3. Integrate very well with the external components - [done](https://github.com/Vedenin/RestAndSpringMVC-CodingChallenge/blob/master/src/main/java/com/github/vedenin/codingchallenge/restclient/FaultTolerantRestClient.java) using collection of Rest sevice and resend request if error.
 
-Using following Rest monitoring and management interface
+4. Implement monitoring and management interface (JMX, REST, etc..) - [done](https://github.com/Vedenin/RestAndSpringMVC-CodingChallenge/blob/master/src/main/java/com/github/vedenin/codingchallenge/mvc/controler/MainRestController.java)
+
+Using following Rest monitoring and management interface:
 
    - Show all users (type: get): https://currency-convector.herokuapp.com/rest/user?access_key=sg435jklj
    - Show all errors (type: get): https://currency-convector.herokuapp.com/rest/error?access_key=sg435jklj
@@ -60,7 +62,6 @@ Using following Rest monitoring and management interface
    - Show all properties (type: get): https://currency-convector.herokuapp.com/rest/property?access_key=sg435jklj
    - Change all properties (type: post): https://currency-convector.herokuapp.com/rest/property?access_key=sg435jklj
   
-4. Integrate very well with the external components - [done](https://github.com/Vedenin/RestAndSpringMVC-CodingChallenge/blob/master/src/main/java/com/github/vedenin/codingchallenge/restclient/FaultTolerantRestClient.java) using collection of Rest sevice and resend request if error.
 
 
 
