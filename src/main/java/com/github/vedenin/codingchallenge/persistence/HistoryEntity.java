@@ -2,10 +2,7 @@ package com.github.vedenin.codingchallenge.persistence;
 
 import com.github.vedenin.codingchallenge.common.CurrencyEnum;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -18,6 +15,7 @@ public class HistoryEntity {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
+    @Column(precision = 30, scale = 2)
     private BigDecimal amount;
 
     private CurrencyEnum currencyFrom;
@@ -26,6 +24,7 @@ public class HistoryEntity {
 
     private Date dateCreate;
 
+    @Column(precision = 30, scale = 5)
     private BigDecimal result;
 
     private String requestType;
