@@ -1,6 +1,6 @@
 ### Rest API and SpringMVC CodingChallenge
 
-This coding challenge task shows following my skills:
+This is coding challenge that I developed to show you my coding and design skills, for example:
 
 1. [Spring MVC](https://github.com/Vedenin/RestAndSpringMVC-CodingChallenge/tree/master/src/main/java/com/github/vedenin/codingchallenge/mvc)
 
