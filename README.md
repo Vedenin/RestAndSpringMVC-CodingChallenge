@@ -24,47 +24,7 @@ This is coding challenge that I developed to show you my coding and design skill
 
 10. [Java Script](https://github.com/Vedenin/RestAndSpringMVC-CodingChallenge/tree/master/src/main/resources/templates) 
 
-#### How run in IDE (Eclipse, Idea)
-
-1. Run 
-     "mvn clean install"
-     
-2. Run Application.class in any Java IDE
-
-#### How run using jar file and Spring Boot 
-1. Run 
-     "mvn clean install"
-     
-2. Run Application.class in codingchallenge-1.0-SNAPSHOT.jar, for example 
-
-   java -jar target/codingchallenge-1.0-SNAPSHOT.jar
-    
-See more info in [Spring Boot documentation](http://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-running-your-application.html)
-
-#### How see result in web
-Use following link: [https://currency-convector.herokuapp.com/](https://currency-convector.herokuapp.com/)
-
-### BONUS POINTS:
-
-1.  Spring MVC for the registration and login forms - [done](https://github.com/Vedenin/RestAndSpringMVC-CodingChallenge/tree/master/src/main/resources/templates)
-
-2. rovide an automated build and test run on a continuous integration server - done: [circleci.com](https://circleci.com/gh/Vedenin/RestAndSpringMVC-CodingChallenge/1) and [travis-ci.org](https://travis-ci.org/Vedenin/RestAndSpringMVC-CodingChallenge)
-
-3. Integrate very well with the external components - [done](https://github.com/Vedenin/RestAndSpringMVC-CodingChallenge/blob/master/src/main/java/com/github/vedenin/codingchallenge/restclient/FaultTolerantRestClient.java) 
-
-4. Cache external request with configurable TTL -  - [done](https://github.com/Vedenin/RestAndSpringMVC-CodingChallenge/blob/master/src/main/java/com/github/vedenin/codingchallenge/restclient/FaultTolerantRestClient.java)
-
-5. Implement monitoring and management interface (JMX, REST, etc..) - [done](https://github.com/Vedenin/RestAndSpringMVC-CodingChallenge/blob/master/src/main/java/com/github/vedenin/codingchallenge/mvc/controler/MainRestController.java)
-
-Using following Rest monitoring and management interface:
-
-   - Show all users (type: get): https://currency-convector.herokuapp.com/rest/user?access_key=sg435jklj
-   - Show all errors (type: get): https://currency-convector.herokuapp.com/rest/error?access_key=sg435jklj
-   - Show all request history (type: get): https://currency-convector.herokuapp.com/rest/history?access_key=sg435jklj
-   - Show all properties (type: get): https://currency-convector.herokuapp.com/rest/property?access_key=sg435jklj
-   - Change all properties (type: post): https://currency-convector.herokuapp.com/rest/property?access_key=sg435jklj
-  
-#### Coding Challenge Requirements 
+## Coding Challenge Requirements 
 
 Develop a protected currency converter application using a public currency converter API
 
@@ -134,3 +94,45 @@ setup your own Jenkins instance)
 
 protects the quality, automates things could be a nice extra.
 
+## My soulution 
+
+#### How run in IDE (Eclipse, Idea)
+
+1. Run 
+     "mvn clean install"
+     
+2. Run Application.class in any Java IDE
+
+#### How run using jar file and Spring Boot 
+1. Run 
+     "mvn clean install"
+     
+2. Run Application.class in codingchallenge-1.0-SNAPSHOT.jar, for example 
+
+   java -jar target/codingchallenge-1.0-SNAPSHOT.jar
+    
+See more info in [Spring Boot documentation](http://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-running-your-application.html)
+
+#### How see result in web
+Use following link: [https://currency-convector.herokuapp.com/](https://currency-convector.herokuapp.com/)
+
+### BONUS POINTS:
+
+1.  Spring MVC for the registration and login forms - [done](https://github.com/Vedenin/RestAndSpringMVC-CodingChallenge/tree/master/src/main/resources/templates)
+
+2. rovide an automated build and test run on a continuous integration server - done: [circleci.com](https://circleci.com/gh/Vedenin/RestAndSpringMVC-CodingChallenge/1) and [travis-ci.org](https://travis-ci.org/Vedenin/RestAndSpringMVC-CodingChallenge)
+
+3. Integrate very well with the external components - [done](https://github.com/Vedenin/RestAndSpringMVC-CodingChallenge/blob/master/src/main/java/com/github/vedenin/codingchallenge/restclient/FaultTolerantRestClient.java) 
+
+4. Cache external request with configurable TTL -  - [done](https://github.com/Vedenin/RestAndSpringMVC-CodingChallenge/blob/master/src/main/java/com/github/vedenin/codingchallenge/restclient/FaultTolerantRestClient.java)
+
+5. Implement monitoring and management interface (JMX, REST, etc..) - [done](https://github.com/Vedenin/RestAndSpringMVC-CodingChallenge/blob/master/src/main/java/com/github/vedenin/codingchallenge/mvc/controler/MainRestController.java)
+
+Using following Rest monitoring and management interface:
+
+   - Show all users (type: get): https://currency-convector.herokuapp.com/rest/user?access_key=sg435jklj
+   - Show all errors (type: get): https://currency-convector.herokuapp.com/rest/error?access_key=sg435jklj
+   - Show all request history (type: get): https://currency-convector.herokuapp.com/rest/history?access_key=sg435jklj
+   - Show all properties (type: get): https://currency-convector.herokuapp.com/rest/property?access_key=sg435jklj
+   - Change all properties (type: post): https://currency-convector.herokuapp.com/rest/property?access_key=sg435jklj
+  
