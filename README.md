@@ -120,7 +120,7 @@ Use following link: [https://currency-convector.herokuapp.com/](https://currency
 
 1.  Spring MVC for the registration and login forms - [done](https://github.com/Vedenin/RestAndSpringMVC-CodingChallenge/tree/master/src/main/resources/templates),
 
-2. rovide an automated build and test run on a continuous integration server - done: [circleci.com](https://circleci.com/gh/Vedenin/RestAndSpringMVC-CodingChallenge/1) and [travis-ci.org](https://travis-ci.org/Vedenin/RestAndSpringMVC-CodingChallenge),
+2. rovide an automated build and test run on a continuous integration server - done: [circleci.com](https://circleci.com/gh/Vedenin/RestAndSpringMVC-CodingChallenge/1), [travis-ci.org](https://travis-ci.org/Vedenin/RestAndSpringMVC-CodingChallenge) and heroku.com,
 
 3. Integrate very well with the external components - [done](https://github.com/Vedenin/RestAndSpringMVC-CodingChallenge/blob/master/src/main/java/com/github/vedenin/codingchallenge/restclient/FaultTolerantRestClient.java) - sent requests to different service and repeat requests if some of them failed,
 
