@@ -2,6 +2,7 @@ package com.github.vedenin.codingchallenge.mvc.model;
 
 import com.github.vedenin.codingchallenge.common.CurrencyEnum;
 
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -23,7 +24,7 @@ public class ConverterFormModel {
 
     private String type = "current";
 
-    private String date = "10.02.2017";
+    private String date = "";
 
     public String getTo() {
         return to;
@@ -74,5 +75,10 @@ public class ConverterFormModel {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    @AssertTrue
+    public boolean isDataCorrect() {
+        return type.equals("current") || !date.isEmpty();
     }
 }

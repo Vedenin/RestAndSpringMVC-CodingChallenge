@@ -3,6 +3,7 @@ package com.github.vedenin.codingchallenge.restclient;
 import com.github.vedenin.codingchallenge.common.CurrencyEnum;
 import com.github.vedenin.codingchallenge.persistence.ErrorEntity;
 import com.github.vedenin.codingchallenge.persistence.ErrorRepository;
+import com.github.vedenin.codingchallenge.persistence.PropertyService;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -22,26 +23,32 @@ public class FaultTolerantRestClient implements RestClient {
     private List<RestClient> list;
     @Inject
     private ErrorRepository errorRepository;
+    @Inject
+    private PropertyService propertyService;
 
     public BigDecimal getCurrentExchangeRates(CurrencyEnum currencyFrom, CurrencyEnum currencyTo) {
-        for (RestClient client : list) {
-            try {
-                return client.getCurrentExchangeRates(currencyFrom, currencyTo);
-            } catch (Exception exp) {
-                errorRepository.save(new ErrorEntity("Error when getCurrentExchangeRates, class: " +
-                        client.getClass(), exp));
+        for(int i = 0; i < propertyService.getDefaultProperties().getReplyRestTimes(); i++) {
+            for (RestClient client : list) {
+                try {
+                    return client.getCurrentExchangeRates(currencyFrom, currencyTo);
+                } catch (Exception exp) {
+                    errorRepository.save(new ErrorEntity("Error when getCurrentExchangeRates, class: " +
+                            client.getClass(), exp));
+                }
             }
         }
         return null;
     }
 
     public BigDecimal getHistoricalExchangeRates(CurrencyEnum currencyFrom, CurrencyEnum currencyTo, Calendar calendar) {
-        for (RestClient client : list) {
-            try {
-                return client.getHistoricalExchangeRates(currencyFrom, currencyTo, calendar);
-            } catch (Exception exp) {
-                errorRepository.save(new ErrorEntity("Error when getCurrentExchangeRates, class: " +
-                        client.getClass(), exp));
+        for(int i = 0; i < propertyService.getDefaultProperties().getReplyRestTimes(); i++) {
+            for (RestClient client : list) {
+                try {
+                    return client.getHistoricalExchangeRates(currencyFrom, currencyTo, calendar);
+                } catch (Exception exp) {
+                    errorRepository.save(new ErrorEntity("Error when getCurrentExchangeRates, class: " +
+                            client.getClass(), exp));
+                }
             }
         }
         return null;

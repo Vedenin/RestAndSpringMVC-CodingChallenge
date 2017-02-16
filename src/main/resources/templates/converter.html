@@ -11,13 +11,26 @@
         function hideDate() {
             document.getElementById("date_block").style.display = 'none';
             document.getElementById("date_label").style.display = 'none';
+            document.getElementById("errorMessage").innerHTML = "";
+        }
+        function validateForm() {
+            var errorMessageElement = document.getElementById("errorMessage");
+            var date = document.getElementById("date").value;
+            var type = document.querySelector('input[name="type"]:checked').value;
+            if(!date && type == "history") {
+                errorMessageElement.innerHTML = "The 'date' field should be filled for 'history' type. Please change and try again";
+                return false;
+            } else {
+                return true;
+            }
         }
         //]]>
     </script>
 </head>
 <body>
 <h3>Currency Converter</h3>
-<form action="#" th:action="@{/converter.html}" th:object="${converterFormModel}" method="post">
+<form action="#" th:action="@{/converter.html}" th:object="${converterFormModel}" method="post"
+      onsubmit="return validateForm()" >
     <table>
         <tr>
             <td>amount:</td>
@@ -62,6 +75,7 @@
                 <input type="radio" th:field="*{type}" th:value="history" onclick="showDate()" />
                 <label th:for="${#ids.prev('type')}" th:text="history">history</label>
             </td>
+            <td th:if="${#fields.hasErrors('type')}" th:errors="*{type}">To Error</td>
         </tr>
         <tr>
             <td>
@@ -74,6 +88,8 @@
                     <input type="date" th:field="*{date}" />
                 </div>
             </td>
+            <td th:if="${#fields.hasErrors('dataCorrect')}" th:errors="*{dataCorrect}">To Error</td>
+            <td><p id="errorMessage"></p></td>
         </tr>
         <tr>
             <td>

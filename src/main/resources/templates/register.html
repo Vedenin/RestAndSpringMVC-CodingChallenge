@@ -15,20 +15,17 @@
             var errorMessageElement = document.getElementById("errorMessage");
             var password = document.getElementById("password").value;
             var passwordAgain = document.getElementById("passwordAgain").value;
-            if(!userName) {
-                errorMessageElement.innerHTML = "The 'userName' field should be filled. Please change and try again";
-                return false;
-            } else if(!password) {
-                errorMessageElement.innerHTML = "The 'password' field should be filled. Please change and try again";
-                return false;
-            } else if(!passwordAgain) {
-                errorMessageElement.innerHTML = "The 'password again' field should be filled. Please change and try again";
-                return false;
-            } else if(password !== passwordAgain) {
-                errorMessageElement.innerHTML = "Your 'password' and 'confirmation password' do not match. Please change and try again";
-                return false;
-            } else if(!validateEmail(email)) {
-                errorMessageElement.innerHTML = "Email isn't correct. Please change and try again";
+            var dataOfBirth = document.getElementById("dataOfBirth").value;
+            var error = "";
+            error += !userName ? "The 'userName' field should be filled.<br>" : "";
+            error += !password? "The 'password' field should be filled.<br>": "";
+            error += !passwordAgain ? "The 'password again' field should be filled.<br>": "";
+            error +=  password !== passwordAgain? "Your 'password' and 'confirmation password' do not match.<br>": "";
+            error += !validateEmail(email) ? "Email isn't correct.<br>": "";
+            error += !dataOfBirth ? "The 'data Of Birth' field should be filled.<br>": "";
+
+            if(error) {
+                errorMessageElement.innerHTML = error + " Please change and try again";
                 return false;
             } else {
                 return true;
@@ -91,7 +88,7 @@
         </tr>
         <tr>
             <td>
-                Date Of Birth:
+                Date Of Birth*:
             </td>
             <td>
                 <input type="date" th:field="*{dataOfBirth}"/>
@@ -132,6 +129,8 @@
         </tr>
     </table>
 </form>
+* - required
+
 <p id="errorMessage"></p>
 </body>
 </html>

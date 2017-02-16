@@ -8,6 +8,7 @@ import com.github.vedenin.codingchallenge.mvc.model.CountryService;
 import com.github.vedenin.codingchallenge.persistence.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -22,7 +23,7 @@ import static com.github.vedenin.codingchallenge.mvc.Consts.*;
 * Controller that provide main page of Converter application
 */
 @Controller
-public class MainController extends WebMvcConfigurerAdapter {
+public class MainWebController extends WebMvcConfigurerAdapter {
 
     private static final String CURRENCY_ENUM = "currencyEnum";
     private static final String RESULT = "result";
@@ -39,19 +40,25 @@ public class MainController extends WebMvcConfigurerAdapter {
     CountryService countryService;
     @Inject
     ErrorRepository errorRepository;
+    @Inject
+    PropertyService propertyService;
 
     @RequestMapping(CONVERTER_URL)
-    public String handleConverterForm(ConverterFormModel converterFormModel, Model model) {
+    public String handleConverterForm(ConverterFormModel converterFormModel, Model model, BindingResult bindingResult) {
         model.addAttribute(CURRENCY_ENUM, CurrencyEnum.values());
 
-        if(converterFormModel.getAmount().doubleValue() > 0 && converterFormModel.getType() != null) {
+        if(converterFormModel.getAmount().doubleValue() > 0 && converterFormModel.getType() != null
+                && !bindingResult.hasErrors()) {
             BigDecimal result = getResult(converterFormModel);
             model.addAttribute(RESULT, String.format("%.3f%n", result));
             saveQuery(converterFormModel, result);
             converterFormModel.setType("current");
-            converterFormModel.setDate(null);
+            converterFormModel.setDate("");
         } else {
-            converterFormModel.setAmount(new BigDecimal(1.0));
+            DefaultProperty property = propertyService.getDefaultProperties();
+            converterFormModel.setAmount(property.getDefaultAmount());
+            converterFormModel.setTo(property.getDefaultCurrencyTo());
+            converterFormModel.setFrom(property.getDefaultCurrencyFrom());
             model.addAttribute(RESULT, "");
         }
         model.addAttribute("history", historyRepository.findFirst10ByOrderByDateCreateDesc());
@@ -78,7 +85,7 @@ public class MainController extends WebMvcConfigurerAdapter {
 
     @ExceptionHandler(Exception.class)
     public String handleError(Model model, Exception ex) {
-        errorRepository.save(new ErrorEntity("Error in Rest service", ex));
+        errorRepository.save(new ErrorEntity("Error in MVC service", ex));
         model.addAttribute("error", ex.getMessage());
         return CONVERTER_URL;
     }
