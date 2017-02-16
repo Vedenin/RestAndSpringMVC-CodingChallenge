@@ -19,6 +19,7 @@ import java.util.Date;
 import javax.inject.Inject;
 
 import static com.github.vedenin.codingchallenge.mvc.Consts.*;
+
 /*
 * Controller that provide main page of Converter application
 */
@@ -45,33 +46,49 @@ public class MainWebController extends WebMvcConfigurerAdapter {
 
     @RequestMapping(CONVERTER_URL)
     public String handleConverterForm(ConverterFormModel converterFormModel, Model model, BindingResult bindingResult) {
-        model.addAttribute(CURRENCY_ENUM, CurrencyEnum.values());
-
-        if(converterFormModel.getAmount().doubleValue() > 0 && converterFormModel.getType() != null
-                && !bindingResult.hasErrors()) {
-            BigDecimal result = getResult(converterFormModel);
-            model.addAttribute(RESULT, String.format("%.3f%n", result));
-            saveQuery(converterFormModel, result);
-            converterFormModel.setType("current");
-            converterFormModel.setDate("");
-        } else {
-            DefaultProperty property = propertyService.getDefaultProperties();
-            converterFormModel.setAmount(property.getDefaultAmount());
-            converterFormModel.setTo(property.getDefaultCurrencyTo());
-            converterFormModel.setFrom(property.getDefaultCurrencyFrom());
+        try {
+            model.addAttribute(CURRENCY_ENUM, CurrencyEnum.values());
+            if (converterFormModel.getAmount().doubleValue() > 0 && converterFormModel.getType() != null
+                    && !bindingResult.hasErrors()) {
+                BigDecimal result = getResult(converterFormModel);
+                model.addAttribute(RESULT, String.format("%.3f%n", result));
+                saveQuery(converterFormModel, result);
+                converterFormModel.setType("current");
+                converterFormModel.setDate("");
+            } else {
+                DefaultProperty property = propertyService.getDefaultProperties();
+                converterFormModel.setAmount(property.getDefaultAmount());
+                converterFormModel.setTo(property.getDefaultCurrencyTo());
+                converterFormModel.setFrom(property.getDefaultCurrencyFrom());
+                model.addAttribute(RESULT, "");
+            }
+            model.addAttribute("history", historyRepository.findFirst10ByOrderByDateCreateDesc());
+            return CONVERTER_URL;
+        } catch (Exception exp) {
             model.addAttribute(RESULT, "");
+            model.addAttribute("error", exp.getMessage());
+            return CONVERTER_URL;
         }
-        model.addAttribute("history", historyRepository.findFirst10ByOrderByDateCreateDesc());
-        return CONVERTER_URL;
     }
 
     @RequestMapping(REGISTER_URL)
     public String handleRegisterForm(UserEntity userEntity, Model model) {
-        if(userEntity.getUserName() != null && !userEntity.getUserName().isEmpty()) {
-            userRepository.save(userEntity);
-            return LOGIN_URL;
-        } else {
-            model.addAttribute("countires", countryService.getCountriesNames());
+        try {
+            if (userEntity.getUserName() != null && !userEntity.getUserName().isEmpty()) {
+                if (userRepository.findByUserName(userEntity.getUserName()) != null) {
+                    model.addAttribute("error", "This UserName already used");
+                    model.addAttribute("countires", countryService.getCountriesNames());
+                    return REGISTER_URL;
+                } else {
+                    userRepository.save(userEntity);
+                    return LOGIN_URL;
+                }
+            } else {
+                model.addAttribute("countires", countryService.getCountriesNames());
+                return REGISTER_URL;
+            }
+        } catch (Exception exp) {
+            model.addAttribute("error", exp.getMessage());
             return REGISTER_URL;
         }
     }
@@ -89,6 +106,7 @@ public class MainWebController extends WebMvcConfigurerAdapter {
         model.addAttribute("error", ex.getMessage());
         return CONVERTER_URL;
     }
+
     private void saveQuery(ConverterFormModel converterFormModel, BigDecimal result) {
         historyRepository.save(new HistoryEntity(converterFormModel.getAmount(),
                 converterFormModel.getCurrencyEnumFrom(), converterFormModel.getCurrencyEnumTo(),

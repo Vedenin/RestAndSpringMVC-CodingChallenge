@@ -101,6 +101,7 @@
         <p th:text="${result}"/>
     </h2>
 </form>
+<span th:text="${error}"></span>
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Log out"/>
 </form>
