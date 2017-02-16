@@ -1,18 +1,29 @@
 ### Rest API and SpringMVC CodingChallenge
 
 This coding challenge task shows following my skills:
-1. Spring MVC
 
-2. Spring Security
+1. [Spring MVC](https://github.com/Vedenin/RestAndSpringMVC-CodingChallenge/tree/master/src/main/java/com/github/vedenin/codingchallenge/mvc)
 
-3. Integration with REST service using Java-RS client
+2. [Spring Security](https://github.com/Vedenin/RestAndSpringMVC-CodingChallenge/blob/master/src/main/java/com/github/vedenin/codingchallenge/mvc/security/SpringSecurityConfiguration.java)
 
-4. Using Spring Rest Service 
+3. [Integration with REST service using Java-RS client](https://github.com/Vedenin/RestAndSpringMVC-CodingChallenge/tree/master/src/main/java/com/github/vedenin/codingchallenge/restclient)
 
-5. Using Spring Boot
+4. [Spring Rest Service](https://github.com/Vedenin/RestAndSpringMVC-CodingChallenge/blob/master/src/main/java/com/github/vedenin/codingchallenge/mvc/controler/MainRestController.java) 
 
-6. Using H2 and Hibernate  
- 
+5. [Spring Boot](https://github.com/Vedenin/RestAndSpringMVC-CodingChallenge/blob/master/src/main/java/com/github/vedenin/codingchallenge/Application.java)
+
+6. [JPA](https://github.com/Vedenin/RestAndSpringMVC-CodingChallenge/tree/master/src/main/java/com/github/vedenin/codingchallenge/persistence)
+
+6. [Hibernate](https://github.com/Vedenin/RestAndSpringMVC-CodingChallenge/tree/master/src/main/java/com/github/vedenin/codingchallenge/persistence)  
+
+7. [H2 database](https://github.com/Vedenin/RestAndSpringMVC-CodingChallenge/tree/master/src/main/java/com/github/vedenin/codingchallenge/persistence)  
+
+8. [MockMvc](https://github.com/Vedenin/RestAndSpringMVC-CodingChallenge/tree/master/src/test/java/com.github.vedenin.codingchallenge)
+
+9. [Thymeleaf](https://github.com/Vedenin/RestAndSpringMVC-CodingChallenge/tree/master/src/main/resources/templates)
+
+10. [Java Script](https://github.com/Vedenin/RestAndSpringMVC-CodingChallenge/tree/master/src/main/resources/templates) 
+
 #### How run in IDE (Eclipse, Idea)
 
 1. Run 
@@ -41,7 +52,18 @@ Use following link: [https://currency-convector.herokuapp.com/](https://currency
 
 3. Implement monitoring and management interface (JMX, REST, etc..) - [done](https://github.com/Vedenin/RestAndSpringMVC-CodingChallenge/blob/master/src/main/java/com/github/vedenin/codingchallenge/mvc/controler/MainRestController.java)
 
+Using following Rest monitoring and management interface
+
+   - Show all users (type: get): https://currency-convector.herokuapp.com/rest/user?access_key=sg435jklj
+   - Show all errors (type: get): https://currency-convector.herokuapp.com/rest/error?access_key=sg435jklj
+   - Show all request history (type: get): https://currency-convector.herokuapp.com/rest/history?access_key=sg435jklj
+   - Show all properties (type: get): https://currency-convector.herokuapp.com/rest/property?access_key=sg435jklj
+   - Change all properties (type: post): https://currency-convector.herokuapp.com/rest/property?access_key=sg435jklj
+  
 4. Integrate very well with the external components - [done](https://github.com/Vedenin/RestAndSpringMVC-CodingChallenge/blob/master/src/main/java/com/github/vedenin/codingchallenge/restclient/FaultTolerantRestClient.java) using collection of Rest sevice and resend request if error.
+
+
+
 
 #### Coding Challenge Requirements 
 
