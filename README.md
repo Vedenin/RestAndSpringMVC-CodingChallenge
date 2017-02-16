@@ -37,7 +37,7 @@ Use following link: [https://currency-convector.herokuapp.com/](https://currency
 
 1.  Spring MVC for the registration and login forms - [done](https://github.com/Vedenin/RestAndSpringMVC-CodingChallenge/tree/master/src/main/resources/templates)
 
-2. rovide an automated build and test run on a continuous integration server - [done in circleci.com](https://circleci.com/gh/Vedenin/RestAndSpringMVC-CodingChallenge/1) and 
+2. rovide an automated build and test run on a continuous integration server - done: [circleci.com](https://circleci.com/gh/Vedenin/RestAndSpringMVC-CodingChallenge/1) and [travis-ci.org](https://travis-ci.org/Vedenin/RestAndSpringMVC-CodingChallenge)
 
 3. Implement monitoring and management interface (JMX, REST, etc..) - [done](https://github.com/Vedenin/RestAndSpringMVC-CodingChallenge/blob/master/src/main/java/com/github/vedenin/codingchallenge/mvc/controler/MainRestController.java)
 
