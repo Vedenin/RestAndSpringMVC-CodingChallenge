@@ -2,10 +2,15 @@
 
 This coding challenge task shows following my skills:
 1. Spring MVC
+
 2. Spring Security
+
 3. Integration with REST service using Java-RS client
+
 4. Using Spring Rest Service 
+
 5. Using Spring Boot
+
 6. Using H2 and Hibernate  
  
 #### How run in IDE (Eclipse, Idea)
@@ -27,6 +32,16 @@ See more info in [Spring Boot documentation](http://docs.spring.io/spring-boot/d
 
 #### How see result in web
 Use following link: [https://currency-convector.herokuapp.com/](https://currency-convector.herokuapp.com/)
+
+### BONUS POINTS:
+
+1.  Spring MVC for the registration and login forms - [done](https://github.com/Vedenin/RestAndSpringMVC-CodingChallenge/tree/master/src/main/resources/templates)
+
+2. rovide an automated build and test run on a continuous integration server - [done in circleci.com](https://circleci.com/gh/Vedenin/RestAndSpringMVC-CodingChallenge/1) and 
+
+3. Implement monitoring and management interface (JMX, REST, etc..) - [done](https://github.com/Vedenin/RestAndSpringMVC-CodingChallenge/blob/master/src/main/java/com/github/vedenin/codingchallenge/mvc/controler/MainRestController.java)
+
+4. Integrate very well with the external components - [done](https://github.com/Vedenin/RestAndSpringMVC-CodingChallenge/blob/master/src/main/java/com/github/vedenin/codingchallenge/restclient/FaultTolerantRestClient.java) using collection of Rest sevice and resend request if error.
 
 #### Coding Challenge Requirements 
 
