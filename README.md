@@ -118,13 +118,13 @@ Use following link: [https://currency-convector.herokuapp.com/](https://currency
 
 ### BONUS POINTS:
 
-1.  Spring MVC for the registration and login forms - [done](https://github.com/Vedenin/RestAndSpringMVC-CodingChallenge/tree/master/src/main/resources/templates)
+1.  Spring MVC for the registration and login forms - [done](https://github.com/Vedenin/RestAndSpringMVC-CodingChallenge/tree/master/src/main/resources/templates),
 
-2. rovide an automated build and test run on a continuous integration server - done: [circleci.com](https://circleci.com/gh/Vedenin/RestAndSpringMVC-CodingChallenge/1) and [travis-ci.org](https://travis-ci.org/Vedenin/RestAndSpringMVC-CodingChallenge)
+2. rovide an automated build and test run on a continuous integration server - done: [circleci.com](https://circleci.com/gh/Vedenin/RestAndSpringMVC-CodingChallenge/1) and [travis-ci.org](https://travis-ci.org/Vedenin/RestAndSpringMVC-CodingChallenge),
 
-3. Integrate very well with the external components - [done](https://github.com/Vedenin/RestAndSpringMVC-CodingChallenge/blob/master/src/main/java/com/github/vedenin/codingchallenge/restclient/FaultTolerantRestClient.java) 
+3. Integrate very well with the external components - [done](https://github.com/Vedenin/RestAndSpringMVC-CodingChallenge/blob/master/src/main/java/com/github/vedenin/codingchallenge/restclient/FaultTolerantRestClient.java) - sent requests to different service and repeat requests if some of them failed,
 
-4. Cache external request with configurable TTL -  - [done](https://github.com/Vedenin/RestAndSpringMVC-CodingChallenge/blob/master/src/main/java/com/github/vedenin/codingchallenge/restclient/FaultTolerantRestClient.java)
+4. Cache external request with configurable TTL -  - [done](https://github.com/Vedenin/RestAndSpringMVC-CodingChallenge/blob/master/src/main/java/com/github/vedenin/codingchallenge/restclient/FaultTolerantRestClient.java),
 
 5. Implement monitoring and management interface (JMX, REST, etc..) - [done](https://github.com/Vedenin/RestAndSpringMVC-CodingChallenge/blob/master/src/main/java/com/github/vedenin/codingchallenge/mvc/controler/MainRestController.java)
 
