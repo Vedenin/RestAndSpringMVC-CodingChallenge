@@ -34,7 +34,7 @@
     <table>
         <tr>
             <td>amount:</td>
-            <td><input type="number" th:field="*{amount}" step="any" min="0" /></td>
+            <td><input type="number" th:field="*{amount}" step="any" min="0" max="99999999999999999999" /></td>
             <td th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}">Amount Error</td>
         </tr>
         <tr>
